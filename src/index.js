@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { keyPressed } from './controls';
 
 const aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -38,45 +39,11 @@ scene.add( base );
 camera.position.y = 1.2;
 camera.position.z = 5;
 
-stand.position.y = 0.25;
-shoulder.position.y = 0.25;
-upperArm.position.y = 1;
-elbow.position.y = 1;
-lowerArm.position.y = 1;
-
-const keyPressed = { up: false, down: false,
-                     w: false, s: false,
-                     a: false, d: false };
-
-function handleKeyup(event) {
-    event.preventDefault();
-    const keycode = event.which;
-
-    switch ( keycode ) {
-    case 38: keyPressed.up = false; break;
-    case 40: keyPressed.down = false; break;
-    case 87: keyPressed.w = false; break;
-    case 83: keyPressed.s = false; break;
-    case 65: keyPressed.a = false; break;
-    case 68: keyPressed.d = false; break;
-    }
-}
-document.addEventListener("keyup", handleKeyup, false);
-
-function handleKeydown(event) {
-    event.preventDefault();
-    const keycode = event.which;
-
-    switch ( keycode ) {
-    case 38: keyPressed.up = true; break;
-    case 40: keyPressed.down = true; break;
-    case 87: keyPressed.w = true; break;
-    case 83: keyPressed.s = true; break;
-    case 65: keyPressed.a = true; break;
-    case 68: keyPressed.d = true; break;
-    }
-}
-document.addEventListener("keydown", handleKeydown, false);
+stand.position.y = stand.geometry.parameters.height / 2;
+shoulder.position.y = stand.geometry.parameters.height / 2;
+upperArm.position.y = upperArm.geometry.parameters.height / 2;
+elbow.position.y = upperArm.geometry.parameters.height / 2;
+lowerArm.position.y = lowerArm.geometry.parameters.height / 2;
 
 const delta = 0.05;
 
