@@ -51,10 +51,10 @@ function handleArms(event) {
     const keycode = event.which;
 
     switch ( keycode ) {
-    case 38: shoulder.rotation.z += delta; break;  // up
-    case 40: shoulder.rotation.z -= delta; break;  // down
-    case 37: elbow.rotation.z += delta; break;     // left
-    case 39: elbow.rotation.z -= delta; break;     // right
+    case 38: elbow.rotation.z -= delta; break;     // up
+    case 40: elbow.rotation.z += delta; break;     // down
+    case 87: shoulder.rotation.z -= delta; break;  // W
+    case 83: shoulder.rotation.z += delta; break;  // S
     case 65: base.rotation.y += delta; break;      // A
     case 68: base.rotation.y -= delta; break;      // D
     }
