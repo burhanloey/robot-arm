@@ -44,8 +44,6 @@ upperArm.position.y = 1;
 elbow.position.y = 1;
 lowerArm.position.y = 1;
 
-const delta = 0.05;
-
 const keyPressed = { up: false, down: false,
                      w: false, s: false,
                      a: false, d: false };
@@ -79,6 +77,8 @@ function handleKeydown(event) {
     }
 }
 document.addEventListener("keydown", handleKeydown, false);
+
+const delta = 0.05;
 
 const animate = () => {
     requestAnimationFrame( animate );
