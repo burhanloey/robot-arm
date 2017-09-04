@@ -1,10 +1,16 @@
+import './utils';
+
 export const keyPressed = { up: false, down: false,
                             w: false, s: false,
                             a: false, d: false };
 
+const validKeycodes = [ 38, 40, 87, 83, 65, 68 ];
+
 function handleKeyup(event) {
-    event.preventDefault();
     const keycode = event.which;
+    if ( keycode.notIn( validKeycodes ) ) { return; };
+
+    event.preventDefault();
 
     switch ( keycode ) {
     case 38: keyPressed.up = false; break;
@@ -18,8 +24,10 @@ function handleKeyup(event) {
 document.addEventListener("keyup", handleKeyup, false);
 
 function handleKeydown(event) {
-    event.preventDefault();
     const keycode = event.which;
+    if ( keycode.notIn( validKeycodes ) ) { return; };
+
+    event.preventDefault();
 
     switch ( keycode ) {
     case 38: keyPressed.up = true; break;
