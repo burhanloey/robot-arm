@@ -1,7 +1,7 @@
 {
   "name": "robot-arm",
   "version": "1.0.0",
-  "description": "Robot arm movement",
+  "description": "Robot arm movement using jointed spherical model",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
