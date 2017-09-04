@@ -83,24 +83,12 @@ const delta = 0.05;
 const animate = () => {
     requestAnimationFrame( animate );
 
-    if ( keyPressed.up ) {
-        elbow.rotation.z -= delta;
-    }
-    if ( keyPressed.down ) {
-        elbow.rotation.z += delta;
-    }
-    if ( keyPressed.w ) {
-        shoulder.rotation.z -= delta;
-    }
-    if ( keyPressed.s ) {
-        shoulder.rotation.z += delta;
-    }
-    if ( keyPressed.d ) {
-        base.rotation.y -= delta;
-    }
-    if ( keyPressed.a ) {
-        base.rotation.y += delta;
-    }
+    if ( keyPressed.up ) { elbow.rotation.z -= delta; }
+    if ( keyPressed.down ) { elbow.rotation.z += delta; }
+    if ( keyPressed.w ) { shoulder.rotation.z -= delta; }
+    if ( keyPressed.s ) { shoulder.rotation.z += delta; }
+    if ( keyPressed.d ) { base.rotation.y -= delta; }
+    if ( keyPressed.a ) { base.rotation.y += delta; }
 
     renderer.render(scene, camera);
 };
