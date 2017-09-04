@@ -46,34 +46,61 @@ lowerArm.position.y = 1;
 
 const delta = 0.05;
 
-function handleArms(event) {
+const keyPressed = { up: false, down: false,
+                     w: false, s: false,
+                     a: false, d: false };
+
+function handleKeyup(event) {
     event.preventDefault();
     const keycode = event.which;
 
     switch ( keycode ) {
-    case 38: elbow.rotation.z -= delta; break;     // up
-    case 40: elbow.rotation.z += delta; break;     // down
-    case 87: shoulder.rotation.z -= delta; break;  // W
-    case 83: shoulder.rotation.z += delta; break;  // S
-    case 65: base.rotation.y += delta; break;      // A
-    case 68: base.rotation.y -= delta; break;      // D
+    case 38: keyPressed.up = false; break;
+    case 40: keyPressed.down = false; break;
+    case 87: keyPressed.w = false; break;
+    case 83: keyPressed.s = false; break;
+    case 65: keyPressed.a = false; break;
+    case 68: keyPressed.d = false; break;
     }
-
-    renderer.render();
 }
-document.addEventListener("keydown", handleArms, false);
+document.addEventListener("keyup", handleKeyup, false);
+
+function handleKeydown(event) {
+    event.preventDefault();
+    const keycode = event.which;
+
+    switch ( keycode ) {
+    case 38: keyPressed.up = true; break;
+    case 40: keyPressed.down = true; break;
+    case 87: keyPressed.w = true; break;
+    case 83: keyPressed.s = true; break;
+    case 65: keyPressed.a = true; break;
+    case 68: keyPressed.d = true; break;
+    }
+}
+document.addEventListener("keydown", handleKeydown, false);
 
 const animate = () => {
     requestAnimationFrame( animate );
 
-    // if ( base.rotation.z < Math.PI / 4 ||
-    //      base.rotation.z > Math.PI * 2 / 3 )
-    // {
-    //     delta = -delta;
-    // }
-    // base.rotation.z += delta;
-    // shoulder.rotation.z += delta;
-    // elbow.rotation.z += delta;
+    if ( keyPressed.up ) {
+        elbow.rotation.z -= delta;
+    }
+    if ( keyPressed.down ) {
+        elbow.rotation.z += delta;
+    }
+    if ( keyPressed.w ) {
+        shoulder.rotation.z -= delta;
+    }
+    if ( keyPressed.s ) {
+        shoulder.rotation.z += delta;
+    }
+    if ( keyPressed.d ) {
+        base.rotation.y -= delta;
+    }
+    if ( keyPressed.a ) {
+        base.rotation.y += delta;
+    }
 
     renderer.render(scene, camera);
 };
