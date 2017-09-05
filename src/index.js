@@ -1,9 +1,10 @@
 import * as THREE from 'three';
-import { keyPressed } from './controls';
+import { Ground } from './scene/ground';
 import { Arm } from './components/arms';
 import { Base } from './components/base';
 import { Joint } from './components/joints';
 import { Support } from './components/support';
+import { keyPressed } from './controls';
 
 const aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -17,7 +18,8 @@ document.body.appendChild( renderer.domElement );
 camera.position.y = 1.2;
 camera.position.z = 5;
 
-const base = new Base().attachTo( scene );
+const ground = new Ground().attachTo( scene );
+const base = new Base().attachTo( ground );
 const support = new Support().attachTo( base );
 const shoulder = new Joint().attachTo( support );
 const upperArm = new Arm().attachTo( shoulder );

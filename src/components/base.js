@@ -9,6 +9,7 @@ export class Base {
 
     attachTo(parent) {
         parent.add( this.base );
+        this.base.position.y = this.base.geometry.parameters.height / 2;
         return this.base;
     }
 }
