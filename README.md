@@ -16,6 +16,12 @@ npm start
 npm run build
 ```
 
+### To deploy to GitHub page
+
+```
+./deploy.sh
+```
+
 ## License
 
 The MIT License
