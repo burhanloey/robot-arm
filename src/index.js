@@ -4,7 +4,12 @@ import { Arm } from './components/arms';
 import { Base } from './components/base';
 import { Joint } from './components/joints';
 import { Support } from './components/support';
+import { Eye } from './components/eye';
 import { keyPressed } from './controls';
+
+const SCREEN_WIDTH = window.innerWidth;
+const SCREEN_HEIGHT = window.innerHeight;
+const aspectRatio = SCREEN_WIDTH / SCREEN_HEIGHT;
 
 const scene = new THREE.Scene();
 
@@ -15,11 +20,8 @@ const shoulder = new Joint().attachTo( support );
 const upperArm = new Arm().attachTo( shoulder );
 const elbow = new Joint().attachTo( upperArm );
 const lowerArm = new Arm().attachTo( elbow );
+const eye = new Eye( aspectRatio ).attachTo( lowerArm );
 
-const SCREEN_WIDTH = window.innerWidth;
-const SCREEN_HEIGHT = window.innerHeight;
-
-const aspectRatio = SCREEN_WIDTH / SCREEN_HEIGHT;
 const camera = new THREE.PerspectiveCamera( 75, aspectRatio, 0.1, 1000 );
 const camera2 = new THREE.PerspectiveCamera( 75, aspectRatio, 0.1, 1000 );
 
@@ -34,9 +36,22 @@ camera.position.z = 5;
 camera2.position.x = -1.5;
 camera2.position.y = 3;
 camera2.position.z = 5;
-camera2.lookAt( ground.position );
 
 const delta = 0.05;
+
+const render = () => {
+    renderer.clear();
+
+    renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+    renderer.render( scene, camera );
+
+    renderer.setViewport( 0, 0, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4 );
+    renderer.render( scene, camera2 );
+
+    renderer.setViewport( SCREEN_WIDTH - SCREEN_WIDTH / 4, 0,
+                          SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4 );
+    renderer.render( scene, eye );
+};
 
 const animate = () => {
     requestAnimationFrame( animate );
@@ -48,13 +63,9 @@ const animate = () => {
     if ( keyPressed.d ) { base.rotation.y -= delta; }
     if ( keyPressed.a ) { base.rotation.y += delta; }
 
-    renderer.clear();
+    camera2.lookAt( lowerArm.getWorldPosition() );
 
-    renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-    renderer.render( scene, camera );
-
-    renderer.setViewport( 0, 0, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4 );
-    renderer.render( scene, camera2 );
+    render();
 };
 
 animate();
